@@ -1,0 +1,43 @@
+@use "sass:math" as math;
+
+@mixin responsiveValue(
+  $property,
+  $startValue,
+  $endValue,
+  $maxWidth,
+  $minWidth
+) {
+  // Убедитесь, что значения имеют единицы измерения
+  $startValue: if(unitless($startValue), $startValue * 1px, $startValue);
+  $endValue: if(unitless($endValue), $endValue * 1px, $endValue);
+  $maxWidth: if(unitless($maxWidth), $maxWidth * 1px, $maxWidth);
+  $minWidth: if(unitless($minWidth), $minWidth * 1px, $minWidth);
+
+  // Установите начальное значение свойства при ширине экрана $maxWidth
+  & {
+    #{$property}: $startValue;
+  }
+
+  @media (max-width: $maxWidth) {
+    // Вычисление разницы значений
+    $valueDifference: $startValue - $endValue;
+    // Вычисление диапазона ширины
+    $widthRange: $maxWidth - $minWidth;
+    // Вычисление коэффициента
+    $scaleFactor: math.div($valueDifference, $widthRange);
+
+    // Формирование строки для calc()
+    & {
+      #{$property}: calc(
+        #{$startValue} + #{$scaleFactor} * (100vw - #{$maxWidth})
+      );
+    }
+  }
+
+  @media (max-width: $minWidth) {
+    // Установка минимального значения свойства
+    & {
+      #{$property}: $endValue;
+    }
+  }
+}

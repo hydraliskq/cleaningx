@@ -1,0 +1,57 @@
+@use "mixins.scss";
+
+.title {
+  color: $blueColor;
+  font-size: 68px;
+  font-weight: 700;
+  line-height: 108.823529%; /* 74/68 */
+  @include mixins.responsiveValue(font-size, 68px, 24px, 1200px, 320px);
+  &--fz48 {
+    @include mixins.responsiveValue(font-size, 48px, 24px, 1200px, 320px);
+  }
+}
+
+.text {
+  line-height: 166.666667%; /* 30/18 */
+}
+
+.label {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 128.571429%; /* 36/28 */
+  color: $blueColor;
+
+  &--fz24 {
+    font-size: 24px;
+  }
+}
+
+.button {
+  display: inline-block;
+  background-color: $lightBlueColor;
+  border-radius: 14px;
+  padding: 18px 24px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 112.5%; /* 18/16 */
+  font-weight: 700;
+  transition: background-color 0.3s ease 0s;
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #1369cc;
+    }
+  }
+
+  &--border {
+    background-color: #fff;
+    color: $blueColor;
+    border: 1px solid #eff0f6;
+    font-weight: 400;
+
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: rgb(223, 221, 221);
+      }
+    }
+  }
+}
